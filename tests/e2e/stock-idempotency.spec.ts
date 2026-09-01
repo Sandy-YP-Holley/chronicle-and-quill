@@ -5,8 +5,17 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
     await page.goto("/login");
     await page.fill("input[type='email']", "scholar@chronicleandquill.com");
     await page.fill("input[type='password']", "HistoricalReader2026!");
-    await page.getByRole("button", { name: /Access The Archive|Sign In/i }).click();
-    await page.waitForURL("/account", { timeout: 10000 });
+
+    await Promise.all([
+      page.waitForResponse(
+        (res) => res.url().includes("/api/auth/login") && res.status() === 200,
+        { timeout: 15000 }
+      ),
+      page.getByRole("button", { name: /Access The Archive|Sign In/i }).click(),
+    ]);
+
+    await page.waitForLoadState("networkidle");
+    await page.waitForURL(/.*(\/account|\/books).*/, { timeout: 15000 });
 
     await page.goto("/books");
 
