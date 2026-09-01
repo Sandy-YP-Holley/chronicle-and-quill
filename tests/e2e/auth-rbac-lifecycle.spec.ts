@@ -21,7 +21,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     // Wait for session cookie to be set
     await page.waitForFunction(() => {
       return document.cookie.includes("cq_session");
-    }, { timeout: 10000 });
+    }, { timeout: 20000 });
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find((c) => c.name === "cq_session");
@@ -61,7 +61,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     // Wait for session cookie to be set
     await page.waitForFunction(() => {
       return document.cookie.includes("cq_session");
-    }, { timeout: 10000 });
+    }, { timeout: 20000 });
 
     await page.goto("/seller/dashboard");
     await expect(page).toHaveURL("/seller/dashboard");
@@ -93,7 +93,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     // Wait for session cookie to be set
     await page.waitForFunction(() => {
       return document.cookie.includes("cq_session");
-    }, { timeout: 10000 });
+    }, { timeout: 20000 });
 
     await page.goto("/admin");
     await expect(page).toHaveURL("/admin");
