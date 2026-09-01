@@ -33,8 +33,12 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
 
     await page.goto("/checkout");
     await expect(page).toHaveURL("/checkout");
+    await page.waitForLoadState("networkidle");
 
-    await page.locator("input[placeholder*='Marcus Aurelius']").fill("Marcus Aurelius");
+    const nameInput = page.locator("input[placeholder*='Marcus Aurelius']");
+    await expect(nameInput).toBeVisible({ timeout: 15000 });
+
+    await nameInput.fill("Marcus Aurelius");
     await page.locator("input[placeholder*='Bibliophile']").fill("42 Palatine Hill");
     await page.locator("input[placeholder*='Alexandria']").fill("Rome");
     await page.locator("input[placeholder*='02108']").fill("00184");
