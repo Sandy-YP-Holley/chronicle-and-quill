@@ -51,7 +51,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     }
   });
 
-  test("Archivist Seller accesses dealership dashboard and inventory management", async ({ page }) => {
+  test("Archivist Seller accesses dealership dashboard and inventory management", async ({ page, context }) => {
     await page.goto("/login");
 
     await page.fill("input[type='email']", "seller@chronicleandquill.com");
