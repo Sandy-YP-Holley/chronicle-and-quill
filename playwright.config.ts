@@ -10,6 +10,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.TEST_BASE_URL || "http://localhost:3000",
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
   projects: [
     {
@@ -29,7 +31,7 @@ export default defineConfig({
   webServer: {
     command: "npm run start",
     url: "http://localhost:3000",
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },
 });
