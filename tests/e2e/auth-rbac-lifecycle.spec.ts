@@ -18,10 +18,20 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     await page.waitForLoadState("networkidle");
     await page.waitForURL(/.*(\/account|\/books).*/, { timeout: 15000 });
 
-    // Wait for session cookie to be set
-    await page.waitForFunction(() => {
-      return document.cookie.includes("cq_session");
-    }, { timeout: 20000 });
+    // Wait for session cookie to be set with buffer and retry
+    await page.waitForTimeout(2000);
+    let cookieFound = false;
+    for (let i = 0; i < 10; i++) {
+      const cookies = await context.cookies();
+      const sessionCookie = cookies.find((c) => c.name === "cq_session");
+      if (sessionCookie) {
+        cookieFound = true;
+        break;
+      }
+      await page.waitForTimeout(1000);
+    }
+    
+    expect(cookieFound).toBe(true);
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find((c) => c.name === "cq_session");
@@ -58,10 +68,20 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     await page.waitForLoadState("networkidle");
     await page.waitForURL(/.*(\/account|\/books).*/, { timeout: 15000 });
 
-    // Wait for session cookie to be set
-    await page.waitForFunction(() => {
-      return document.cookie.includes("cq_session");
-    }, { timeout: 20000 });
+    // Wait for session cookie to be set with buffer and retry
+    await page.waitForTimeout(2000);
+    let cookieFound = false;
+    for (let i = 0; i < 10; i++) {
+      const cookies = await context.cookies();
+      const sessionCookie = cookies.find((c) => c.name === "cq_session");
+      if (sessionCookie) {
+        cookieFound = true;
+        break;
+      }
+      await page.waitForTimeout(1000);
+    }
+    
+    expect(cookieFound).toBe(true);
 
     await page.goto("/seller/dashboard");
     await expect(page).toHaveURL("/seller/dashboard");
@@ -73,7 +93,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     await expect(page.getByRole("button", { name: /Remote URL/i })).toBeVisible();
   });
 
-  test("Curatorial Admin accesses protected overseer dashboard and management views", async ({ page }) => {
+  test("Curatorial Admin accesses protected overseer dashboard and management views", async ({ page, context }) => {
     await page.goto("/login");
 
     await page.fill("input[type='email']", "admin@chronicleandquill.com");
@@ -90,10 +110,20 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     await page.waitForLoadState("networkidle");
     await page.waitForURL(/.*(\/account|\/books).*/, { timeout: 15000 });
 
-    // Wait for session cookie to be set
-    await page.waitForFunction(() => {
-      return document.cookie.includes("cq_session");
-    }, { timeout: 20000 });
+    // Wait for session cookie to be set with buffer and retry
+    await page.waitForTimeout(2000);
+    let cookieFound = false;
+    for (let i = 0; i < 10; i++) {
+      const cookies = await context.cookies();
+      const sessionCookie = cookies.find((c) => c.name === "cq_session");
+      if (sessionCookie) {
+        cookieFound = true;
+        break;
+      }
+      await page.waitForTimeout(1000);
+    }
+    
+    expect(cookieFound).toBe(true);
 
     await page.goto("/admin");
     await expect(page).toHaveURL("/admin");
