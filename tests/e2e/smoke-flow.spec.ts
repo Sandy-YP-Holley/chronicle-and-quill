@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
-  test("completes end-to-end purchasing journey", async ({ page }) => {
+  test("completes end-to-end purchasing journey", async ({ page, context }) => {
     await page.goto("/login");
     await page.fill("input[type='email']", "scholar@chronicleandquill.com");
     await page.fill("input[type='password']", "HistoricalReader2026!");
@@ -16,6 +16,21 @@ test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
 
     await page.waitForLoadState("networkidle");
     await page.waitForURL(/.*(\/account|\/books).*/, { timeout: 15000 });
+
+    // Wait for session cookie to be set with buffer and retry
+    await page.waitForTimeout(2000);
+    let cookieFound = false;
+    for (let i = 0; i < 10; i++) {
+      const cookies = await context.cookies();
+      const sessionCookie = cookies.find((c) => c.name === "cq_session");
+      if (sessionCookie) {
+        cookieFound = true;
+        break;
+      }
+      await page.waitForTimeout(1000);
+    }
+    
+    expect(cookieFound).toBe(true);
 
     await page.goto("/books");
     await expect(page).toHaveURL("/books");
