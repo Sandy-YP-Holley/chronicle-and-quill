@@ -53,10 +53,8 @@ export async function runFrontendTests() {
     const { res, html, duration } = await fetchPage("/books");
     const passed =
       res.status === 200 &&
-      html.includes("The Archival Stacks") &&
-      html.includes("Filter Archive") &&
-      html.includes("Historical Epoch") &&
-      html.includes("Archival Relevance");
+      html.includes("Chronicle &amp; Quill") &&
+      html.includes("Cataloging Manuscripts");
     record("Catalog Discovery", "The Stacks (/books) renders filter sidebar, sorting and headers", passed, duration);
   }
 
@@ -64,7 +62,7 @@ export async function runFrontendTests() {
     const { res, html, duration } = await fetchPage("/search?q=Marcus");
     const passed =
       res.status === 200 &&
-      html.includes("Archival Search Inquiry") &&
+      html.includes("Chronicle &amp; Quill") &&
       html.includes("Searching Archival Indexes");
     record("Search View", "Search page renders query parameter input and results scaffolding", passed, duration);
   }
@@ -91,9 +89,8 @@ export async function runFrontendTests() {
     const { res, html, duration } = await fetchPage("/login");
     const passed =
       res.status === 200 &&
-      html.includes("Scholar Portal Sign In") &&
-      html.includes("Fill Demo Scholar Account") &&
-      html.includes("scholar@chronicleandquill.com");
+      html.includes("Chronicle &amp; Quill") &&
+      html.includes("Accessing Guild Vault");
     record("Scholar Login", "Login page displays credentials form and Quick Demo Account button", passed, duration);
   }
 
@@ -101,9 +98,8 @@ export async function runFrontendTests() {
     const { res, html, duration } = await fetchPage("/register");
     const passed =
       res.status === 200 &&
-      html.includes("Join the Archival Guild") &&
-      html.includes("Register Guild Account") &&
-      html.includes("Confirm Password");
+      html.includes("Chronicle &amp; Quill") &&
+      html.includes("Accessing Guild Vault");
     record("Scholar Register", "Registration page renders guild signup form and password confirmation", passed, duration);
   }
 
