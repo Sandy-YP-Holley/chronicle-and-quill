@@ -6,7 +6,7 @@ const SESSION_COOKIE_NAME = "cq_session";
 const DEFAULT_SECRET = "chronicle_and_quill_super_secure_secret_key_32chars_minimum!";
 
 function getSecretKey(): Uint8Array {
-  const secret = process.env.AUTH_SECRET || DEFAULT_SECRET;
+  const secret = process.env.SESSION_SECRET || process.env.AUTH_SECRET || DEFAULT_SECRET;
   return new TextEncoder().encode(secret);
 }
 
@@ -83,7 +83,8 @@ export async function middleware(request: NextRequest) {
         headers: requestHeaders,
       },
     });
-  } catch {
+  } catch (error) {
+    console.error("Session verification failed:", error);
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     const response = NextResponse.redirect(loginUrl);
