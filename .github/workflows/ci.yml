@@ -58,11 +58,14 @@ jobs:
       - name: Business Logic Unit Tests
         run: npm run test:unit
 
-      - name: Full-Stack API Integration Tests
-        run: npm run test:qa
-
       - name: Production Bundle Compilation
         run: npm run build
+
+      - name: Start Production Server & Await Readiness
+        run: npm start & npx wait-on -t 30000 http://localhost:3000
+
+      - name: Full-Stack API Integration Tests
+        run: npm run test:qa
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
