@@ -65,9 +65,15 @@ export async function verifySessionToken(token: string): Promise<SessionPayload 
 
 export async function setSessionCookie(token: string): Promise<void> {
   const cookieStore = await cookies();
+  
+  // Ensure cookie is set in all environments, including test
+  // In test environment, secure flag should be false to allow cookie in non-HTTPS
+  const isProduction = process.env.NODE_ENV === "production";
+  const isTest = process.env.NODE_ENV === "test" || process.env.CI === "true";
+  
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isProduction, // Only require HTTPS in production, allow in test
     sameSite: "lax",
     path: "/",
     maxAge: SESSION_DURATION_SECONDS,
