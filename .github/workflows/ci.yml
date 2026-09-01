@@ -15,10 +15,17 @@ jobs:
         image: mongo:7.0
         ports:
           - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
-      MONGODB_URI: mongodb://localhost:27017/chronicle_quill
-      MONGODB_DB: chronicle_quill
-      SESSION_SECRET: chronicle_and_quill_super_secure_secret_key_32chars_minimum!
+      MONGODB_URI: "mongodb://127.0.0.1:27017/chronicle_quill_ci"
+      MONGODB_DB: "chronicle_quill_ci"
+      SESSION_SECRET: "ci-testing-session-secret-key-must-be-32-chars"
+      NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+      NODE_ENV: "test"
       CI: true
 
     steps:
