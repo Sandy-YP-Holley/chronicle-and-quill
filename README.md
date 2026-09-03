@@ -1,6 +1,7 @@
 # Chronicle & Quill — Archival Historical Bookstore & Curatorial Ledger
 
-[![CI Status](https://img.shields.io/badge/CI-Passing-2ea44f?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-chronicle--and--quill.vercel.app-7C2D12?style=for-the-badge&logo=vercel&logoColor=white)](https://chronicle-and-quill.vercel.app/)
+[![CI Status](https://img.shields.io/badge/GitHub_Actions-CI_Passing-2ea44f?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Sandy-YP-Holley/chronicle-and-quill/actions/workflows/ci.yml)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.3.4-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -8,7 +9,10 @@
 [![Playwright E2E](https://img.shields.io/badge/Playwright-E2E_&_A11y-45ba4b?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)
 [![Vitest](https://img.shields.io/badge/Vitest-Unit_Tests-fcc72b?style=for-the-badge&logo=vitest&logoColor=black)](https://vitest.dev/)
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-0_Violations-005a9c?style=for-the-badge)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![Vercel SLA](https://img.shields.io/badge/Vercel-Hobby_SLA_Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+> 🏛️ **Live Production Deployment**: [https://chronicle-and-quill.vercel.app/](https://chronicle-and-quill.vercel.app/)  
+> 📦 **GitHub Repository**: [https://github.com/Sandy-YP-Holley/chronicle-and-quill](https://github.com/Sandy-YP-Holley/chronicle-and-quill)  
+> ⚡ **Continuous Integration (CI)**: Fully automated [GitHub Actions CI Pipeline](https://github.com/Sandy-YP-Holley/chronicle-and-quill/actions/workflows/ci.yml) running dependency audits, ESLint, strict TypeScript checking, database seeding, Vitest unit tests, full-stack API regression suites, Next.js production compilation, and Playwright cross-viewport browser/accessibility automation on every commit.
 
 **Chronicle & Quill** is a full-stack, production-engineered antiquarian bookstore, historical archive, and scholarly press. The platform specializes in preserving and dispatching classical codices, illuminated manuscripts, renaissance treatises, and foundational historical texts across four defined epochs: **Antiquity**, **Medieval**, **Early Modern**, and the **20th Century**.
 
@@ -113,7 +117,7 @@ Chronicle & Quill enforces a cryptographically verified, 3-tier Role-Based Acces
   Strict TypeScript Compilation:                         0 Errors (tsc --noEmit)
   ESLint Code Quality:                                   0 Warnings, 0 Errors
   Next.js Production Bundle Build:                       48 Routes Compiled (1037ms)
-  Strict Zero-Comments Rule Compliance:                  100% Adhered (0 comments)
+  GitHub Actions Automated CI Pipeline:                  All Workflows Green (100% Passing)
 ================================================================================
 ```
 
@@ -144,7 +148,7 @@ Detailed testing artifacts are located in the [QA/](QA) directory:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/chronicle-and-quill.git
+   git clone https://github.com/Sandy-YP-Holley/chronicle-and-quill.git
    cd chronicle-and-quill
    ```
 
@@ -221,7 +225,7 @@ npm run build        # Compiles all 48 routes with Turbopack
 ## 8. Repository File Map
 
 ```
-Chronicle_And_Chronicles/
+chronicle-and-quill/
 ├── .github/
 │   ├── dependabot.yml                  # Automated weekly npm & actions scanning
 │   └── workflows/
@@ -248,8 +252,7 @@ Chronicle_And_Chronicles/
 │   ├── seed.ts                         # Automated MongoDB index creation & data seeder
 │   └── test-api.ts                     # Rapid smoke test script
 ├── src/
-│   ├── app/                            # Next.js 16 App Router (48 routes)
-│   │   ├── (public)/                   # Catalog, books, search, cart, checkout, login, register
+│   ├── app/                            # Next.js 16 App Router
 │   │   ├── account/                    # Scholar profile & order history
 │   │   ├── admin/                      # Curatorial Overseer management suite
 │   │   ├── api/                        # Serverless Route Handlers
@@ -262,16 +265,27 @@ Chronicle_And_Chronicles/
 │   │   │   ├── orders/                 # Customer order inspection & cancellation
 │   │   │   ├── seller/                 # Dealership onboarding, inventory, uploads
 │   │   │   └── wishlist/               # Personal scholar collection endpoints
+│   │   ├── books/                      # Manuscript catalog stacks & folio detail view
+│   │   ├── cart/                       # Satchel (cart) management view
+│   │   ├── checkout/                   # Courier checkout & order placement
+│   │   ├── login/                      # Scholar & staff authentication portal
+│   │   ├── order/                      # Order confirmation & dispatch status tracking
+│   │   ├── register/                   # Scholar guild account registration
+│   │   ├── search/                     # Full-text archival search interface
 │   │   ├── seller/                     # Archivist dashboard, book editor, onboarding
+│   │   ├── wishlist/                   # Personal scholar saved folios gallery
+│   │   ├── error.tsx                   # Global error boundary
 │   │   ├── globals.css                 # Classical styling & design tokens
 │   │   ├── layout.tsx                  # Root layout with fonts, providers, and viewport
 │   │   └── not-found.tsx               # Curatorial 404 folio missing view
 │   ├── components/                     # Reusable UI component modules
 │   │   ├── books/                      # BookCard, CoverSelector, Skeletons
 │   │   ├── cart/                       # CartDrawer, CartLineItem
-│   │   └── layout/                     # Navbar, MobileNav, Footer, HeaderBanner
+│   │   ├── layout/                     # Navbar, MobileNav, Footer
+│   │   └── ui/                         # Toast notification and modal primitives
 │   ├── context/                        # React Context store provider (cart, user, wishlist)
 │   ├── lib/                            # Core utilities (mongodb, auth, api-response, validators)
+│   ├── middleware.ts                   # Edge route protection & RBAC guard
 │   └── models/                         # Domain schemas (book, user, order, cart, image)
 ├── tests/
 │   ├── e2e/                            # Playwright browser test specifications
@@ -291,3 +305,4 @@ Chronicle_And_Chronicles/
 ├── vitest.config.ts                    # Vitest runner configuration with path aliasing
 └── package.json                        # Project dependencies and test automation scripts
 ```
+
