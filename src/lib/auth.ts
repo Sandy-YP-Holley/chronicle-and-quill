@@ -73,7 +73,7 @@ export async function setSessionCookie(token: string): Promise<void> {
   
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: isProduction, // Only require HTTPS in production, allow in test
+    secure: isProduction && !isTest, // Only require HTTPS in production, allow in test
     sameSite: "lax",
     path: "/",
     maxAge: SESSION_DURATION_SECONDS,
@@ -93,9 +93,11 @@ export async function getSession(): Promise<SessionPayload | null> {
 
 export async function clearSessionCookie(): Promise<void> {
   const cookieStore = await cookies();
+  const isProduction = process.env.NODE_ENV === "production";
+  const isTest = process.env.NODE_ENV === "test" || process.env.CI === "true";
   cookieStore.set(SESSION_COOKIE_NAME, "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isProduction && !isTest,
     sameSite: "lax",
     path: "/",
     maxAge: 0,

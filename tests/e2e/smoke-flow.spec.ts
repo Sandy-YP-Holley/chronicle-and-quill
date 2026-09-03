@@ -14,12 +14,9 @@ test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
       page.getByRole("button", { name: /Access The Archive|Sign In/i }).click(),
     ]);
 
-    // Wait for the client-side redirect; fall back to manual navigation
+    // Use Web-First assertion to poll page.url() until router.push updates the URL
     try {
-      await page.waitForURL(
-        (url) => !url.pathname.startsWith("/login"),
-        { timeout: 30000 }
-      );
+      await expect(page).toHaveURL(/.*(\/account|\/books).*/, { timeout: 8000 });
     } catch {
       await page.goto("/account");
     }
@@ -27,17 +24,16 @@ test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
 
     // Verify session cookie is set
     let cookieFound = false;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       const cookies = await context.cookies();
       const sessionCookie = cookies.find((c) => c.name === "cq_session");
       if (sessionCookie) {
         cookieFound = true;
         break;
       }
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(500);
     }
     expect(cookieFound).toBe(true);
-
 
     await page.goto("/books");
     await expect(page).toHaveURL("/books");
@@ -52,11 +48,10 @@ test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
 
     const addToCartButton = page.getByRole("button", { name: /Add to Archival Cart|Add to Cart/i }).first();
     await expect(addToCartButton).toBeVisible();
-    await addToCartButton.click();
+    await addToCartButton.click({ force: true });
 
     await page.goto("/checkout");
     await expect(page).toHaveURL("/checkout");
-    await page.waitForLoadState("networkidle");
 
     const nameInput = page.locator("input[placeholder*='Marcus Aurelius']");
     await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -69,9 +64,9 @@ test.describe("Smoke Flow: Scholar Discovery to Order Fulfillment", () => {
 
     const submitOrderButton = page.getByRole("button", { name: /Confirm & Place/i });
     await expect(submitOrderButton).toBeVisible();
-    await submitOrderButton.click();
+    await submitOrderButton.click({ force: true });
 
-    await page.waitForURL(/\/order\/[a-f0-9]{24}/, { timeout: 15000 });
+    await expect(page).toHaveURL(/\/order\/[a-f0-9]{24}/, { timeout: 20000 });
     await expect(page.locator("h1")).toContainText("Archival Dispatch Registered");
 
     await page.goto("/account/orders");

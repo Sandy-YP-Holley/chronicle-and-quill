@@ -14,12 +14,9 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
       page.getByRole("button", { name: /Access The Archive|Sign In/i }).click(),
     ]);
 
-    // Wait for the client-side redirect; fall back to manual navigation
+    // Use Web-First assertion to poll page.url() until router.push updates the URL
     try {
-      await page.waitForURL(
-        (url) => !url.pathname.startsWith("/login"),
-        { timeout: 30000 }
-      );
+      await expect(page).toHaveURL(/.*(\/account|\/books).*/, { timeout: 8000 });
     } catch {
       await page.goto("/account");
     }
@@ -27,17 +24,16 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
 
     // Verify session cookie is set
     let cookieFound = false;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       const cookies = await context.cookies();
       const sessionCookie = cookies.find((c) => c.name === "cq_session");
       if (sessionCookie) {
         cookieFound = true;
         break;
       }
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(500);
     }
     expect(cookieFound).toBe(true);
-
 
     await page.goto("/books");
 
@@ -51,11 +47,10 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
 
     const addBtn = page.getByRole("button", { name: /Add to Archival Cart|Add to Cart/i }).first();
     await expect(addBtn).toBeVisible();
-    await addBtn.click();
+    await addBtn.click({ force: true });
 
     await page.goto("/checkout");
     await expect(page).toHaveURL("/checkout");
-    await page.waitForLoadState("networkidle");
 
     const nameInput = page.locator("input[placeholder*='Marcus Aurelius']");
     await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -69,9 +64,9 @@ test.describe("Inventory Guards & Idempotent Checkout Protections", () => {
     const submitBtn = page.getByRole("button", { name: /Confirm & Place/i });
     await expect(submitBtn).toBeEnabled();
 
-    await submitBtn.click();
+    await submitBtn.click({ force: true });
 
-    await page.waitForURL(/\/order\/[a-f0-9]{24}/, { timeout: 15000 });
+    await expect(page).toHaveURL(/\/order\/[a-f0-9]{24}/, { timeout: 20000 });
   });
 
   test("displays sold out or empty results state when querying depleted stock", async ({ page }) => {

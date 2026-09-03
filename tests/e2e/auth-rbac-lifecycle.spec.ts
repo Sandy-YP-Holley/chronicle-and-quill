@@ -20,23 +20,15 @@ async function performLogin(page: Page, email: string) {
     page.getByRole("button", { name: /Access The Archive|Sign In/i }).click(),
   ]);
 
-  // Wait for the client-side redirect that the login page triggers
-  // (refreshUser + refreshCart + router.push). In CI this chain can be slow,
-  // so give it a generous timeout. If it still doesn't redirect, navigate
-  // manually — the session cookie is already set from the API response.
+  // Use Web-First assertion to poll page.url() until router.push updates the URL
   try {
-    await page.waitForURL(
-      (url) => !url.pathname.startsWith("/login"),
-      { timeout: 30000 }
-    );
+    await expect(page).toHaveURL(/.*(\/account|\/books).*/, { timeout: 8000 });
   } catch {
-    // Client-side redirect didn't fire in time — navigate directly.
-    // This still validates that the cookie was set correctly because
-    // the middleware will bounce us back to /login if it wasn't.
+    // If client-side router transition was slow in CI, navigate directly
     await page.goto("/account");
   }
 
-  // Confirm we are NOT on the login page (i.e. session is valid)
+  // Confirm we are authenticated and not on the login page
   await expect(page).not.toHaveURL(/\/login/);
 }
 
@@ -53,7 +45,7 @@ test.describe("Authentication, Session Lifecycle & Multi-Role RBAC", () => {
     const logoutBtn = page.getByRole("button", { name: /Sign Out|Logout/i }).first();
     if (await logoutBtn.isVisible()) {
       await logoutBtn.click();
-      await page.waitForURL(/.*\/login.*/, { timeout: 15000 });
+      await expect(page).toHaveURL(/.*\/login.*/, { timeout: 15000 });
     }
   });
 
