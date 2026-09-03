@@ -118,9 +118,9 @@ function CatalogContent() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full animate-fadeIn">
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-[#E5E7EB] gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-[#E5E7EB] gap-4">
         <div>
-          <h1 className="text-3xl font-cinzel font-bold text-[#1C1917]">
+          <h1 className="text-2xl sm:text-3xl font-cinzel font-bold text-[#1C1917]">
             The Archival Stacks
           </h1>
           <p className="text-xs sm:text-sm text-[#44403C] font-serif mt-1">
@@ -128,17 +128,20 @@ function CatalogContent() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 self-end md:self-auto">
+        <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setIsMobileFiltersOpen(true)}
-            className="md:hidden flex items-center gap-2 bg-white border border-[#E5E7EB] px-3.5 py-2 rounded-md text-xs font-cinzel tracking-wider uppercase text-stone-700 hover:border-[#D97706]"
+            className="md:hidden flex items-center gap-2 bg-white border border-[#E5E7EB] px-3.5 py-2 rounded-md text-xs font-cinzel tracking-wider uppercase text-stone-700 hover:border-[#D97706] shadow-2xs active:scale-95 transition-all cursor-pointer"
           >
             <Filter className="w-4 h-4 text-[#7C2D12]" />
             <span>Filters</span>
+            {hasActiveFilters && (
+              <span className="w-2 h-2 rounded-full bg-[#D97706]" />
+            )}
           </button>
 
-          <div className="flex items-center gap-2 bg-white border border-[#E5E7EB] rounded-md px-3 py-1.5 shadow-2xs">
+          <div className="flex items-center gap-2 bg-white border border-[#E5E7EB] rounded-md px-3 py-2 sm:py-1.5 shadow-2xs">
             <ArrowUpDown className="w-3.5 h-3.5 text-stone-400 shrink-0" />
             <span className="text-xs font-cinzel uppercase text-stone-500 hidden sm:inline">Sort:</span>
             <select
@@ -358,7 +361,8 @@ function CatalogContent() {
                 </h2>
                 <button
                   onClick={() => setIsMobileFiltersOpen(false)}
-                  className="p-1.5 text-stone-500 rounded-md"
+                  className="p-1.5 text-stone-500 hover:text-stone-900 rounded-md cursor-pointer"
+                  aria-label="Close filters"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -370,20 +374,27 @@ function CatalogContent() {
                 </h3>
                 <div className="space-y-2">
                   {PERIODS.map((period) => (
-                    <label key={period} className="flex items-center gap-2.5 text-xs font-serif text-stone-700">
+                    <label key={period} className="flex items-center gap-2.5 text-xs font-serif text-stone-700 cursor-pointer">
                       <input
                         type="radio"
                         name="mobile-period"
                         checked={currentPeriod === period}
                         onChange={() => {
                           updateParam("period", currentPeriod === period ? null : period);
-                          setIsMobileFiltersOpen(false);
                         }}
                         className="accent-[#7C2D12] w-4 h-4"
                       />
                       <span>{period}</span>
                     </label>
                   ))}
+                  {currentPeriod && (
+                    <button
+                      onClick={() => updateParam("period", null)}
+                      className="text-[11px] text-[#7C2D12] hover:underline pt-1 block"
+                    >
+                      Clear epoch filter
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -393,31 +404,70 @@ function CatalogContent() {
                 </h3>
                 <div className="space-y-2">
                   {FORMATS.map((fmt) => (
-                    <label key={fmt} className="flex items-center gap-2.5 text-xs font-serif text-stone-700">
+                    <label key={fmt} className="flex items-center gap-2.5 text-xs font-serif text-stone-700 cursor-pointer">
                       <input
                         type="radio"
                         name="mobile-format"
                         checked={currentFormat === fmt}
                         onChange={() => {
                           updateParam("format", currentFormat === fmt ? null : fmt);
-                          setIsMobileFiltersOpen(false);
                         }}
                         className="accent-[#7C2D12] w-4 h-4"
                       />
                       <span>{fmt}</span>
                     </label>
                   ))}
+                  {currentFormat && (
+                    <button
+                      onClick={() => updateParam("format", null)}
+                      className="text-[11px] text-[#7C2D12] hover:underline pt-1 block"
+                    >
+                      Clear format filter
+                    </button>
+                  )}
                 </div>
               </div>
 
               <div className="pt-4 border-t border-[#E5E7EB]">
-                <label className="flex items-center gap-2.5 text-xs font-serif text-stone-700">
+                <h3 className="font-cinzel text-xs font-semibold uppercase tracking-wider text-stone-700 mb-3">
+                  Price Range (USD)
+                </h3>
+                <form onSubmit={(e) => { handlePriceApply(e); setIsMobileFiltersOpen(false); }} className="space-y-2.5">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Min"
+                      value={tempPriceMin}
+                      onChange={(e) => setTempPriceMin(e.target.value)}
+                      className="w-full bg-[#F5F0E8] border border-[#E5E7EB] rounded px-2.5 py-1.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#D97706]"
+                    />
+                    <span className="text-stone-400 text-xs">&ndash;</span>
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Max"
+                      value={tempPriceMax}
+                      onChange={(e) => setTempPriceMax(e.target.value)}
+                      className="w-full bg-[#F5F0E8] border border-[#E5E7EB] rounded px-2.5 py-1.5 text-xs text-[#1C1917] focus:outline-none focus:border-[#D97706]"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#F5F0E8] hover:bg-[#EDE4D3] border border-[#D97706]/70 text-[#1C1917] py-1.5 rounded text-xs font-cinzel uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    Apply Price Range
+                  </button>
+                </form>
+              </div>
+
+              <div className="pt-4 border-t border-[#E5E7EB]">
+                <label className="flex items-center gap-2.5 text-xs font-serif text-stone-700 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={currentInStock}
                     onChange={(e) => {
                       updateParam("inStock", e.target.checked ? "true" : null);
-                      setIsMobileFiltersOpen(false);
                     }}
                     className="accent-[#7C2D12] w-4 h-4"
                   />
@@ -425,15 +475,27 @@ function CatalogContent() {
                 </label>
               </div>
 
-              <button
-                onClick={() => {
-                  clearAllFilters();
-                  setIsMobileFiltersOpen(false);
-                }}
-                className="w-full bg-[#7C2D12] text-[#FBF9F5] py-2.5 rounded font-cinzel text-xs uppercase tracking-wider shadow-xs"
-              >
-                Reset All Filters
-              </button>
+              <div className="pt-4 border-t border-[#E5E7EB] space-y-2">
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFiltersOpen(false)}
+                  className="w-full bg-[#7C2D12] text-[#FBF9F5] py-2.5 rounded font-cinzel text-xs uppercase tracking-wider shadow-xs hover:bg-[#9A3412] transition-colors cursor-pointer"
+                >
+                  Apply &amp; View Folios
+                </button>
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearAllFilters();
+                      setIsMobileFiltersOpen(false);
+                    }}
+                    className="w-full bg-white text-stone-700 border border-stone-300 py-2 rounded font-cinzel text-xs uppercase tracking-wider hover:bg-stone-50 transition-colors cursor-pointer"
+                  >
+                    Reset All Filters
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -470,24 +532,24 @@ function CatalogContent() {
               </div>
 
               {totalPages > 1 && (
-                <div className="mt-12 pt-6 border-t border-[#E5E7EB] flex items-center justify-between">
+                <div className="mt-12 pt-6 border-t border-[#E5E7EB] flex items-center justify-between gap-2">
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
-                    className="flex items-center gap-1 text-xs font-cinzel uppercase tracking-wider text-[#1C1917] hover:text-[#7C2D12] disabled:opacity-30 disabled:hover:text-[#1C1917] transition-colors p-2"
+                    className="flex items-center gap-1 text-xs font-cinzel uppercase tracking-wider text-[#1C1917] hover:text-[#7C2D12] disabled:opacity-30 disabled:hover:text-[#1C1917] transition-colors p-2 shrink-0 cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                    <span>Previous Folio</span>
+                    <span>Prev<span className="hidden sm:inline"> Folio</span></span>
                   </button>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1">
                     {[...Array(totalPages)].map((_, i) => {
                       const pageNum = i + 1;
                       return (
                         <button
                           key={pageNum}
                           onClick={() => handlePageChange(pageNum)}
-                          className={`w-8 h-8 rounded text-xs font-cinzel font-bold transition-colors ${
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded text-xs font-cinzel font-bold transition-colors cursor-pointer shrink-0 ${
                             currentPage === pageNum
                               ? "bg-[#7C2D12] text-[#FBF9F5] shadow-xs"
                               : "text-stone-700 hover:bg-[#F5F0E8]"
@@ -502,9 +564,9 @@ function CatalogContent() {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    className="flex items-center gap-1 text-xs font-cinzel uppercase tracking-wider text-[#1C1917] hover:text-[#7C2D12] disabled:opacity-30 disabled:hover:text-[#1C1917] transition-colors p-2"
+                    className="flex items-center gap-1 text-xs font-cinzel uppercase tracking-wider text-[#1C1917] hover:text-[#7C2D12] disabled:opacity-30 disabled:hover:text-[#1C1917] transition-colors p-2 shrink-0 cursor-pointer"
                   >
-                    <span>Next Folio</span>
+                    <span>Next<span className="hidden sm:inline"> Folio</span></span>
                     <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>

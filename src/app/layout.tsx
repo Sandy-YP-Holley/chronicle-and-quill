@@ -31,6 +31,7 @@ const inter = Inter({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: "#FBF9F5",
 };
 
@@ -66,7 +67,7 @@ export default function RootLayout({
         <StoreProvider>
           <Navbar />
           <CartDrawer />
-          <main className="flex-1 flex flex-col">{children}</main>
+          <main className="flex-1 flex flex-col pb-16 md:pb-0">{children}</main>
           <MobileNav />
           <Footer />
         </StoreProvider>

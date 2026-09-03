@@ -114,13 +114,13 @@ function SearchContent() {
       </div>
 
       {query && (
-        <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#E5E7EB]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 border-b border-[#E5E7EB] gap-2">
           <p className="text-xs sm:text-sm font-serif text-stone-700">
-            Found <strong className="text-[#1C1917] font-mono">{results.length}</strong> historical {results.length === 1 ? "manuscript" : "manuscripts"} matching &ldquo;<span className="text-[#7C2D12] font-semibold">{query}</span>&rdquo;
+            Found <strong className="text-[#1C1917] font-mono">{results.length}</strong> historical {results.length === 1 ? "manuscript" : "manuscripts"} matching &ldquo;<span className="text-[#7C2D12] font-semibold break-all">{query}</span>&rdquo;
           </p>
           <Link
             href="/books"
-            className="text-xs font-cinzel uppercase text-[#7C2D12] hover:underline font-bold"
+            className="text-xs font-cinzel uppercase text-[#7C2D12] hover:underline font-bold self-start sm:self-auto"
           >
             Explore Complete Stacks &rarr;
           </Link>

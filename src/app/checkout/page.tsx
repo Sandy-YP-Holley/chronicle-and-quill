@@ -336,7 +336,7 @@ export default function CheckoutPage() {
                       }
                     }}
                     placeholder="Marcus Aurelius Scholar"
-                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-xs text-[#1C1917] focus:outline-none transition-colors ${
+                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-sm sm:text-xs text-[#1C1917] focus:outline-none transition-colors ${
                       addressErrors.fullName || addressErrors["shippingAddress.fullName"]
                         ? "border-red-600 focus:ring-1 focus:ring-red-600 focus:border-red-600"
                         : "border-[#E5E7EB] focus:border-[#D97706]"
@@ -370,7 +370,7 @@ export default function CheckoutPage() {
                       }
                     }}
                     placeholder="42 Bibliophile Terrace"
-                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-xs text-[#1C1917] focus:outline-none transition-colors ${
+                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-sm sm:text-xs text-[#1C1917] focus:outline-none transition-colors ${
                       addressErrors.street || addressErrors["shippingAddress.street"]
                         ? "border-red-600 focus:ring-1 focus:ring-red-600 focus:border-red-600"
                         : "border-[#E5E7EB] focus:border-[#D97706]"
@@ -405,7 +405,7 @@ export default function CheckoutPage() {
                         }
                       }}
                       placeholder="Alexandria"
-                      className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-xs text-[#1C1917] focus:outline-none transition-colors ${
+                      className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-sm sm:text-xs text-[#1C1917] focus:outline-none transition-colors ${
                         addressErrors.city || addressErrors["shippingAddress.city"]
                           ? "border-red-600 focus:ring-1 focus:ring-red-600 focus:border-red-600"
                           : "border-[#E5E7EB] focus:border-[#D97706]"
@@ -439,7 +439,7 @@ export default function CheckoutPage() {
                         }
                       }}
                       placeholder="02108"
-                      className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-xs text-[#1C1917] focus:outline-none transition-colors ${
+                      className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-sm sm:text-xs text-[#1C1917] focus:outline-none transition-colors ${
                         addressErrors.postalCode || addressErrors["shippingAddress.postalCode"]
                           ? "border-red-600 focus:ring-1 focus:ring-red-600 focus:border-red-600"
                           : "border-[#E5E7EB] focus:border-[#D97706]"
@@ -473,7 +473,7 @@ export default function CheckoutPage() {
                         });
                       }
                     }}
-                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-xs text-[#1C1917] focus:outline-none transition-colors ${
+                    className={`w-full bg-[#F5F0E8] border rounded p-2.5 text-sm sm:text-xs text-[#1C1917] focus:outline-none transition-colors ${
                       addressErrors.country || addressErrors["shippingAddress.country"]
                         ? "border-red-600 focus:ring-1 focus:ring-red-600 focus:border-red-600"
                         : "border-[#E5E7EB] focus:border-[#D97706]"

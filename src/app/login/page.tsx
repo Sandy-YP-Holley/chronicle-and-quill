@@ -103,25 +103,25 @@ function LoginContent() {
               Fill Demo Scholar Account
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => handleFillDemo("scholar@chronicleandquill.com")}
-              className="bg-white hover:bg-stone-50 border border-stone-300 py-1.5 px-2 rounded text-[10px] font-cinzel uppercase font-bold text-stone-700 hover:text-[#7C2D12] transition-colors text-center cursor-pointer"
+              className="bg-white hover:bg-stone-50 border border-stone-300 py-2 sm:py-1.5 px-3 rounded text-[11px] sm:text-[10px] font-cinzel uppercase font-bold text-stone-700 hover:text-[#7C2D12] transition-colors text-center cursor-pointer"
             >
               Scholar (Buyer)
             </button>
             <button
               type="button"
               onClick={() => handleFillDemo("seller@chronicleandquill.com")}
-              className="bg-white hover:bg-stone-50 border border-amber-300 py-1.5 px-2 rounded text-[10px] font-cinzel uppercase font-bold text-stone-700 hover:text-[#7C2D12] transition-colors text-center cursor-pointer"
+              className="bg-white hover:bg-stone-50 border border-amber-300 py-2 sm:py-1.5 px-3 rounded text-[11px] sm:text-[10px] font-cinzel uppercase font-bold text-stone-700 hover:text-[#7C2D12] transition-colors text-center cursor-pointer"
             >
               Archivist (Seller)
             </button>
             <button
               type="button"
               onClick={() => handleFillDemo("admin@chronicleandquill.com")}
-              className="bg-white hover:bg-stone-50 border border-[#7C2D12] py-1.5 px-2 rounded text-[10px] font-cinzel uppercase font-bold text-[#7C2D12] transition-colors text-center cursor-pointer"
+              className="bg-white hover:bg-stone-50 border border-[#7C2D12] py-2 sm:py-1.5 px-3 rounded text-[11px] sm:text-[10px] font-cinzel uppercase font-bold text-[#7C2D12] transition-colors text-center cursor-pointer"
             >
               Overseer (Admin)
             </button>

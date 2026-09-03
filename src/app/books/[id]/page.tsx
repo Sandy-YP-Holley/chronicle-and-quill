@@ -124,9 +124,9 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
         <span className="text-[#1C1917] font-semibold truncate max-w-xs">{book.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
         <div className="lg:col-span-5">
-          <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden bg-[#F5F0E8] border border-[#E5E7EB] shadow-lg sticky top-24">
+          <div className="relative aspect-[3/4] w-full max-w-sm mx-auto lg:max-w-none rounded-xl overflow-hidden bg-[#F5F0E8] border border-[#E5E7EB] shadow-lg sticky top-24">
             <Image
               src={book.imageUrl}
               alt={book.title}
@@ -157,7 +157,7 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
             <span className="text-xs font-cinzel uppercase text-[#7C2D12] tracking-widest block font-bold mb-2">
               {book.authors.join(", ")}
             </span>
-            <h1 className="font-playfair text-3xl sm:text-4xl font-bold text-[#1C1917] leading-tight mb-4">
+            <h1 className="font-playfair text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1C1917] leading-tight mb-4">
               {book.title}
             </h1>
 
@@ -176,7 +176,7 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
 
           <div className="mb-6">
             <div className="flex items-baseline gap-4 mb-2">
-              <span className="text-3xl font-cinzel font-bold text-[#1C1917]">
+              <span className="text-2xl sm:text-3xl font-cinzel font-bold text-[#1C1917]">
                 {formatCurrency(book.price)}
               </span>
               <span className="text-xs font-serif text-stone-500">
@@ -258,36 +258,51 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
           )}
 
           <div className="pt-6 border-t border-[#E5E7EB] mt-auto">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              {!isOutOfStock && (
-                <div className="flex items-center border border-[#E5E7EB] rounded-md bg-white self-start">
-                  <button
-                    type="button"
-                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                    disabled={quantity <= 1 || isLoadingCart}
-                    className="p-2.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors"
-                    aria-label="Decrease quantity"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="w-10 text-center font-mono text-sm font-bold">{quantity}</span>
-                  <button
-                    type="button"
-                    onClick={() => setQuantity((prev) => Math.min(book.stock, prev + 1))}
-                    disabled={quantity >= book.stock || isLoadingCart}
-                    className="p-2.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors"
-                    aria-label="Increase quantity"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <div className="flex items-center gap-3">
+                {!isOutOfStock && (
+                  <div className="flex items-center border border-[#E5E7EB] rounded-md bg-white">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                      disabled={quantity <= 1 || isLoadingCart}
+                      className="p-2.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors cursor-pointer"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="w-10 text-center font-mono text-sm font-bold">{quantity}</span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity((prev) => Math.min(book.stock, prev + 1))}
+                      disabled={quantity >= book.stock || isLoadingCart}
+                      className="p-2.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors cursor-pointer"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => toggleWishlist(book.id, book.title)}
+                  className={`p-3 rounded-md border transition-all flex sm:hidden items-center justify-center gap-2 text-xs font-cinzel uppercase tracking-wider cursor-pointer ${
+                    isSaved
+                      ? "bg-[#7C2D12] text-[#FBF9F5] border-[#7C2D12]"
+                      : "bg-white text-stone-700 border-[#E5E7EB] hover:border-[#D97706]"
+                  }`}
+                  title={isSaved ? "Saved in Wishlist" : "Save to Wishlist"}
+                >
+                  <Bookmark className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`} />
+                </button>
+              </div>
 
               <button
                 type="button"
                 onClick={handleAddToCart}
                 disabled={isOutOfStock || isAdding || isLoadingCart}
-                className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-6 rounded-md font-cinzel text-xs uppercase tracking-wider font-bold shadow-md transition-all ${
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-6 rounded-md font-cinzel text-xs uppercase tracking-wider font-bold shadow-md transition-all cursor-pointer ${
                   isOutOfStock
                     ? "bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300"
                     : "bg-[#7C2D12] text-[#FBF9F5] hover:bg-[#9A3412] active:scale-98"
@@ -300,7 +315,7 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
               <button
                 type="button"
                 onClick={() => toggleWishlist(book.id, book.title)}
-                className={`p-3.5 rounded-md border transition-all flex items-center justify-center gap-2 text-xs font-cinzel uppercase tracking-wider ${
+                className={`hidden sm:flex p-3.5 rounded-md border transition-all items-center justify-center gap-2 text-xs font-cinzel uppercase tracking-wider cursor-pointer ${
                   isSaved
                     ? "bg-[#7C2D12] text-[#FBF9F5] border-[#7C2D12]"
                     : "bg-white text-stone-700 border-[#E5E7EB] hover:border-[#D97706]"

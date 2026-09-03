@@ -53,32 +53,32 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-[#7C2D12] selection:text-[#FBF9F5] animate-fadeIn">
-      <section className="relative pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-[#E5E7EB] bg-radial from-[#F5F0E8] via-[#FBF9F5] to-[#FBF9F5] overflow-hidden">
+      <section className="relative pt-10 sm:pt-14 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 border-b border-[#E5E7EB] bg-radial from-[#F5F0E8] via-[#FBF9F5] to-[#FBF9F5] overflow-hidden">
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#D97706]/50 text-[#7C2D12] text-xs font-cinzel tracking-widest uppercase mb-6 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#D97706]" />
+            <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white border border-[#D97706]/50 text-[#7C2D12] text-[11px] sm:text-xs font-cinzel tracking-wider sm:tracking-widest uppercase mb-4 sm:mb-6 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#D97706] shrink-0" />
               <span>Primary Sources &bull; The Renaissance &amp; Antiquity</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-cinzel font-bold text-[#1C1917] tracking-tight leading-[1.12] mb-6">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-[#1C1917] tracking-tight leading-[1.18] sm:leading-[1.12] mb-4 sm:mb-6">
               Literature Preserved Through the Corridors of Time
             </h1>
 
-            <p className="text-base sm:text-lg text-[#44403C] font-serif leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-[#44403C] font-serif leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto">
               From philosophical treatises of Classical Rome to monumental Renaissance historiography. Explore authentic archival reprints, leather-bound folios, and timeless historical literature.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
               <Link
                 href="/books"
-                className="bg-[#7C2D12] text-[#FBF9F5] hover:bg-[#9A3412] px-6 py-3.5 rounded-md font-cinzel text-xs tracking-widest uppercase transition-all shadow-md flex items-center gap-2 border border-[#D97706]/40 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+                className="bg-[#7C2D12] text-[#FBF9F5] hover:bg-[#9A3412] px-6 py-3 sm:py-3.5 rounded-md font-cinzel text-xs tracking-widest uppercase transition-all shadow-md flex items-center justify-center gap-2 border border-[#D97706]/40 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
               >
                 <BookOpen className="w-4 h-4 text-[#D97706]" /> Explore the Stacks
               </Link>
               <Link
                 href="/search"
-                className="bg-[#F5F0E8] text-[#1C1917] hover:bg-[#EDE4D3] border border-[#D97706] px-6 py-3.5 rounded-md font-cinzel text-xs tracking-widest uppercase transition-all shadow-xs flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+                className="bg-[#F5F0E8] text-[#1C1917] hover:bg-[#EDE4D3] border border-[#D97706] px-6 py-3 sm:py-3.5 rounded-md font-cinzel text-xs tracking-widest uppercase transition-all shadow-xs flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
               >
                 <Search className="w-4 h-4 text-[#7C2D12]" /> Search Archives
               </Link>
@@ -87,13 +87,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#F5F0E8] border-b border-[#E5E7EB] py-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+      <section className="bg-[#F5F0E8] border-b border-[#E5E7EB] py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex items-center sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           {HISTORICAL_EPOCHS.map((epoch, idx) => (
             <button
               key={idx}
               onClick={() => setSelectedEpoch(epoch.period)}
-              className={`px-4 py-2 rounded-full text-xs font-cinzel tracking-wider uppercase transition-all flex items-center gap-2 ${
+              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-cinzel tracking-wider uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
                 selectedEpoch === epoch.period
                   ? "bg-[#7C2D12] text-[#FBF9F5] shadow-xs"
                   : "bg-white text-[#44403C] border border-[#E5E7EB] hover:border-[#D97706] hover:text-[#7C2D12]"
@@ -114,14 +114,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="catalog" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex-1">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-[#E5E7EB]">
+      <section id="catalog" className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex-1">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 pb-4 border-b border-[#E5E7EB] gap-3">
           <div>
             <div className="flex items-center gap-2 text-[#7C2D12] text-xs font-cinzel uppercase tracking-wider mb-1">
               <Compass className="w-4 h-4" />
               <span>Curated Selection</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-[#1C1917]">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-cinzel font-bold text-[#1C1917]">
               {selectedEpoch ? `${selectedEpoch} Manuscripts` : "Featured Historical Folios"}
             </h2>
             <p className="text-xs sm:text-sm text-[#44403C] font-serif mt-1">
@@ -130,7 +130,7 @@ export default function Home() {
           </div>
           <Link
             href={selectedEpoch ? `/books?period=${encodeURIComponent(selectedEpoch)}` : "/books"}
-            className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-cinzel text-[#7C2D12] hover:text-[#9A3412] tracking-wider uppercase font-bold transition-colors"
+            className="mt-2 md:mt-0 inline-flex items-center gap-1.5 text-xs font-cinzel text-[#7C2D12] hover:text-[#9A3412] tracking-wider uppercase font-bold transition-colors"
           >
             <span>View All in Stacks</span>
             <ArrowRight className="w-4 h-4 text-[#D97706]" />
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {[...Array(6)].map((_, i) => (
               <BookCardSkeleton key={i} />
             ))}
@@ -150,13 +150,13 @@ export default function Home() {
             <p className="text-xs text-stone-500 font-serif mb-4">No books matched this epoch filter.</p>
             <button
               onClick={() => setSelectedEpoch("")}
-              className="text-xs font-cinzel uppercase text-[#7C2D12] underline"
+              className="text-xs font-cinzel uppercase text-[#7C2D12] underline cursor-pointer"
             >
               Reset to All Stacks
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {featuredBooks.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   Home,
   BookOpen,
@@ -19,6 +19,7 @@ import { useStore } from "@/context/store-context";
 
 export function MobileNav() {
   const router = useRouter();
+  const pathname = usePathname();
   const {
     user,
     cart,
@@ -40,6 +41,12 @@ export function MobileNav() {
       router.push("/books");
     }
   }
+
+  const isHomeActive = pathname === "/";
+  const isStacksActive = pathname.startsWith("/books");
+  const isSearchActive = pathname.startsWith("/search");
+  const isWishlistActive = pathname.startsWith("/wishlist");
+  const isCartActive = pathname.startsWith("/cart");
 
   return (
     <>
@@ -153,7 +160,7 @@ export function MobileNav() {
                       setIsMobileMenuOpen(false);
                       logout();
                     }}
-                    className="px-3 py-2 text-xs font-cinzel text-red-800 hover:bg-red-50 rounded-md flex items-center gap-2 text-left"
+                    className="px-3 py-2 text-xs font-cinzel text-red-800 hover:bg-red-50 rounded-md flex items-center gap-2 text-left cursor-pointer"
                   >
                     <LogOut className="w-4 h-4" />
                     <span>Sign Out</span>
@@ -175,56 +182,71 @@ export function MobileNav() {
       )}
 
       <nav
-        className="fixed bottom-0 inset-x-0 bg-[#FBF9F5]/98 backdrop-blur-md border-t border-[#E5E7EB] z-40 md:hidden py-2 px-3 flex justify-around items-center shadow-lg"
+        className="fixed bottom-0 inset-x-0 bg-[#FBF9F5]/98 backdrop-blur-md border-t border-[#E5E7EB] z-40 md:hidden pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] px-3 flex justify-around items-center shadow-lg"
         aria-label="Mobile quick navigation"
       >
         <Link
           href="/"
-          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-[#7C2D12] text-[10px] font-cinzel uppercase p-1 rounded focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+          className={`flex flex-col items-center gap-0.5 text-[10px] font-cinzel uppercase p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none ${
+            isHomeActive ? "text-[#7C2D12] font-bold" : "text-stone-600 hover:text-[#7C2D12]"
+          }`}
         >
-          <Home className="w-5 h-5" />
+          <Home className={`w-5 h-5 ${isHomeActive ? "text-[#7C2D12] stroke-[2.5]" : "text-stone-500"}`} />
           <span>Home</span>
+          {isHomeActive && <span className="w-1 h-1 rounded-full bg-[#D97706] mt-0.5" />}
         </Link>
         <Link
           href="/books"
-          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-[#7C2D12] text-[10px] font-cinzel uppercase p-1 rounded focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+          className={`flex flex-col items-center gap-0.5 text-[10px] font-cinzel uppercase p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none ${
+            isStacksActive ? "text-[#7C2D12] font-bold" : "text-stone-600 hover:text-[#7C2D12]"
+          }`}
         >
-          <BookOpen className="w-5 h-5" />
+          <BookOpen className={`w-5 h-5 ${isStacksActive ? "text-[#7C2D12] stroke-[2.5]" : "text-stone-500"}`} />
           <span>Stacks</span>
+          {isStacksActive && <span className="w-1 h-1 rounded-full bg-[#D97706] mt-0.5" />}
         </Link>
         <Link
           href="/search"
-          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-[#7C2D12] text-[10px] font-cinzel uppercase p-1 rounded focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+          className={`flex flex-col items-center gap-0.5 text-[10px] font-cinzel uppercase p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none ${
+            isSearchActive ? "text-[#7C2D12] font-bold" : "text-stone-600 hover:text-[#7C2D12]"
+          }`}
         >
-          <Search className="w-5 h-5" />
+          <Search className={`w-5 h-5 ${isSearchActive ? "text-[#7C2D12] stroke-[2.5]" : "text-stone-500"}`} />
           <span>Search</span>
+          {isSearchActive && <span className="w-1 h-1 rounded-full bg-[#D97706] mt-0.5" />}
         </Link>
         <Link
           href="/wishlist"
-          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-[#7C2D12] text-[10px] font-cinzel uppercase relative p-1 rounded focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+          className={`flex flex-col items-center gap-0.5 text-[10px] font-cinzel uppercase relative p-1.5 rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none ${
+            isWishlistActive ? "text-[#7C2D12] font-bold" : "text-stone-600 hover:text-[#7C2D12]"
+          }`}
           aria-label={`Wishlist with ${wishlistIds.length} items`}
         >
-          <Bookmark className="w-5 h-5" />
+          <Bookmark className={`w-5 h-5 ${isWishlistActive ? "text-[#7C2D12] stroke-[2.5] fill-[#7C2D12]/20" : "text-stone-500"}`} />
           {wishlistIds.length > 0 && (
-            <span className="absolute -top-1 right-1 w-4 h-4 rounded-full bg-[#D97706] text-[#1C1917] font-bold text-[9px] flex items-center justify-center">
+            <span className="absolute top-0.5 right-1.5 w-4 h-4 rounded-full bg-[#D97706] text-[#1C1917] font-bold text-[9px] flex items-center justify-center">
               {wishlistIds.length}
             </span>
           )}
           <span>Saved</span>
+          {isWishlistActive && <span className="w-1 h-1 rounded-full bg-[#D97706] mt-0.5" />}
         </Link>
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
-          className="group flex flex-col items-center gap-0.5 text-stone-600 hover:text-[#7C2D12] text-[10px] font-cinzel uppercase relative p-1 rounded transition-all duration-200 active:scale-90 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none cursor-pointer"
+          className={`group flex flex-col items-center gap-0.5 text-[10px] font-cinzel uppercase relative p-1.5 rounded transition-all duration-200 active:scale-90 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none cursor-pointer ${
+            isCartActive ? "text-[#7C2D12] font-bold" : "text-stone-600 hover:text-[#7C2D12]"
+          }`}
           aria-label={`Cart with ${cart.itemCount} items`}
         >
-          <ShoppingBag className="w-5 h-5 text-[#7C2D12] group-hover:scale-110 transition-transform duration-200" />
+          <ShoppingBag className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${isCartActive ? "text-[#7C2D12] stroke-[2.5]" : "text-[#7C2D12]"}`} />
           {cart.itemCount > 0 && (
-            <span className="absolute -top-1 right-1 w-4 h-4 rounded-full bg-[#D97706] text-[#1C1917] font-bold text-[9px] flex items-center justify-center shadow-xs">
+            <span className="absolute top-0.5 right-1.5 w-4 h-4 rounded-full bg-[#D97706] text-[#1C1917] font-bold text-[9px] flex items-center justify-center shadow-xs">
               {cart.itemCount}
             </span>
           )}
           <span>Cart</span>
+          {isCartActive && <span className="w-1 h-1 rounded-full bg-[#D97706] mt-0.5" />}
         </button>
       </nav>
     </>

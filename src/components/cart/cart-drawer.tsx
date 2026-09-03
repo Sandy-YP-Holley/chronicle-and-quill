@@ -49,10 +49,10 @@ export function CartDrawer() {
         onClick={() => setIsCartOpen(false)}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div
           ref={drawerRef}
-          className={`w-screen max-w-md bg-parchment-50 shadow-md flex flex-col border-l border-parchment-300 transform transition-transform duration-150 ease-out ${
+          className={`w-full sm:w-screen max-w-md bg-parchment-50 shadow-md flex flex-col border-l border-parchment-300 transform transition-transform duration-150 ease-out ${
             isCartOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >

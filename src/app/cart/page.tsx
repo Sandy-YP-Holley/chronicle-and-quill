@@ -103,8 +103,8 @@ export default function CartPage() {
 
           <div className="bg-white rounded-lg border border-parchment-300 divide-y divide-parchment-300 shadow-2xs">
             {cart.items.map((item) => (
-              <div key={item.bookId} className="p-5 sm:p-6 flex flex-col sm:flex-row gap-5 items-start">
-                <div className="relative w-20 h-28 bg-parchment-100 rounded overflow-hidden shrink-0 border border-parchment-300">
+              <div key={item.bookId} className="p-4 sm:p-6 flex flex-row gap-3.5 sm:gap-5 items-start">
+                <div className="relative w-16 h-24 sm:w-20 sm:h-28 bg-parchment-100 rounded overflow-hidden shrink-0 border border-parchment-300">
                   <Image
                     src={item.imageUrl}
                     alt={item.title}
@@ -115,13 +115,13 @@ export default function CartPage() {
                 </div>
 
                 <div className="flex-1 min-w-0 w-full flex flex-col justify-between">
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1.5 sm:gap-2">
                     <div>
                       <span className="text-[10px] font-cinzel uppercase text-burgundy-700 tracking-wider block font-bold">
                         {item.period} &bull; {item.format}
                       </span>
                       <Link href={`/books/${item.bookId}`}>
-                        <h3 className="font-playfair text-base sm:text-lg font-bold text-ink-900 hover:text-burgundy-700 transition-colors leading-snug">
+                        <h3 className="font-playfair text-sm sm:text-base lg:text-lg font-bold text-ink-900 hover:text-burgundy-700 transition-colors leading-snug">
                           {item.title}
                         </h3>
                       </Link>
@@ -130,23 +130,23 @@ export default function CartPage() {
                       </p>
                     </div>
 
-                    <div className="text-left sm:text-right">
-                      <span className="text-base font-cinzel font-bold text-ink-900 block">
+                    <div className="text-left sm:text-right mt-1 sm:mt-0">
+                      <span className="text-sm sm:text-base font-cinzel font-bold text-ink-900 block">
                         {formatCurrency(item.lineTotal)}
                       </span>
-                      <span className="text-[11px] text-stone-400 font-mono">
+                      <span className="text-[10px] sm:text-[11px] text-stone-400 font-mono">
                         {formatCurrency(item.price)} each
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-stone-100">
+                  <div className="flex items-center justify-between mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-stone-100">
                     <div className="flex items-center border border-parchment-300 rounded bg-parchment-50 shadow-2xs">
                       <button
                         type="button"
                         onClick={() => updateCartQuantity(item.bookId, item.quantity - 1)}
                         disabled={item.quantity <= 1 || isLoadingCart}
-                        className="p-1.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors active:scale-90"
+                        className="p-1.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors active:scale-90 cursor-pointer"
                         aria-label="Decrease quantity"
                       >
                         <Minus className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export default function CartPage() {
                         type="button"
                         onClick={() => updateCartQuantity(item.bookId, item.quantity + 1)}
                         disabled={item.quantity >= item.stock || isLoadingCart}
-                        className="p-1.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors active:scale-90"
+                        className="p-1.5 text-stone-500 hover:text-stone-900 disabled:opacity-30 transition-colors active:scale-90 cursor-pointer"
                         aria-label="Increase quantity"
                       >
                         <Plus className="w-3.5 h-3.5" />
@@ -189,7 +189,7 @@ export default function CartPage() {
         </div>
 
         <div className="lg:col-span-4">
-          <div className="bg-white rounded-lg border border-parchment-300 p-6 shadow-xs sticky top-24 space-y-4">
+          <div className="bg-white rounded-lg border border-parchment-300 p-5 sm:p-6 shadow-xs sticky top-24 space-y-4 mb-8 lg:mb-0">
             <h2 className="font-cinzel text-base font-bold text-ink-900 pb-3 border-b border-parchment-300">
               Archival Order Summary
             </h2>

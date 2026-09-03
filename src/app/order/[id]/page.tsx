@@ -133,7 +133,7 @@ export default function OrderConfirmationPage({ params }: { params: Promise<{ id
             Archival Dispatch Registered
           </h1>
           <p className="text-xs sm:text-sm text-stone-500 font-serif max-w-md mx-auto">
-            Order Reference: <span className="font-mono font-bold text-[#1C1917]">{order.id}</span>
+            Order Reference: <span className="font-mono font-bold text-[#1C1917] break-all">{order.id}</span>
           </p>
         </div>
 

@@ -181,11 +181,11 @@ export default function OrderHistoryPage() {
                 key={order.id}
                 className="bg-white rounded-lg border border-[#E5E7EB] shadow-2xs overflow-hidden"
               >
-                <div className="p-4 sm:p-5 bg-[#F5F0E8] border-b border-[#E5E7EB] flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-4">
+                <div className="p-3.5 sm:p-5 bg-[#F5F0E8] border-b border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                     <div>
                       <span className="text-[10px] font-mono text-stone-500 uppercase block">Order Reference</span>
-                      <span className="font-mono text-xs font-bold text-[#1C1917]">{order.id}</span>
+                      <span className="font-mono text-xs font-bold text-[#1C1917] break-all">{order.id}</span>
                     </div>
                     <div>
                       <span className="text-[10px] font-mono text-stone-500 uppercase block">Date Placed</span>
@@ -197,7 +197,7 @@ export default function OrderHistoryPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-200">
                     <span
                       className={`inline-flex items-center gap-1.5 text-xs font-cinzel font-bold px-2.5 py-1 rounded border ${badge.bg} ${badge.text} ${badge.border}`}
                     >

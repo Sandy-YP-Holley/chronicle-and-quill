@@ -46,7 +46,7 @@ export function BookCard({ book }: { book: BookCardData }) {
 
   return (
     <article className="group bg-white rounded-lg border border-parchment-300 hover:border-gold-500 archival-card-hover overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      <div className="relative h-64 sm:h-72 w-full bg-parchment-100 overflow-hidden border-b border-parchment-300">
+      <div className="relative h-56 sm:h-72 w-full bg-parchment-100 overflow-hidden border-b border-parchment-300">
         <Link href={`/books/${book.id}`} className="block w-full h-full relative">
           <Image
             src={book.imageUrl}
@@ -57,9 +57,9 @@ export function BookCard({ book }: { book: BookCardData }) {
           />
         </Link>
 
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none">
+        <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 flex flex-col gap-1.5 pointer-events-none">
           <span
-            className={`text-[10px] sm:text-[11px] font-cinzel px-2.5 py-1 rounded shadow-xs font-semibold ${badge.bgClass} ${badge.textClass}`}
+            className={`text-[10px] sm:text-[11px] font-cinzel px-2.5 py-0.5 sm:py-1 rounded shadow-xs font-semibold ${badge.bgClass} ${badge.textClass}`}
           >
             {book.period}
           </span>
@@ -81,7 +81,7 @@ export function BookCard({ book }: { book: BookCardData }) {
         <button
           type="button"
           onClick={handleToggleWishlist}
-          className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-200 active:scale-95 shadow-sm focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:outline-none ${
+          className={`absolute top-2.5 right-2.5 sm:top-3 sm:right-3 p-2 rounded-full backdrop-blur-md transition-all duration-200 active:scale-95 shadow-sm focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:outline-none cursor-pointer ${
             isSaved
               ? "bg-burgundy-700 text-parchment-50 hover:bg-burgundy-800"
               : "bg-white/80 text-stone-700 hover:bg-white hover:text-burgundy-700"
@@ -91,40 +91,40 @@ export function BookCard({ book }: { book: BookCardData }) {
           <Bookmark className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`} />
         </button>
 
-        <div className="absolute bottom-3 right-3 flex items-center gap-2">
+        <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 flex items-center gap-1.5 sm:gap-2">
           {book.rating && (
-            <div className="bg-black/70 backdrop-blur-xs text-amber-400 text-[11px] px-2 py-1 rounded font-sans flex items-center gap-1 font-semibold">
+            <div className="bg-black/70 backdrop-blur-xs text-amber-400 text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 sm:py-1 rounded font-sans flex items-center gap-1 font-semibold">
               <Star className="w-3 h-3 fill-current" />
               <span>{book.rating.toFixed(1)}</span>
             </div>
           )}
-          <span className="text-[10px] font-cinzel uppercase bg-parchment-50/95 border border-gold-500/70 text-burgundy-700 px-2 py-0.5 rounded shadow-xs font-semibold">
+          <span className="text-[9px] sm:text-[10px] font-cinzel uppercase bg-parchment-50/95 border border-gold-500/70 text-burgundy-700 px-2 py-0.5 rounded shadow-xs font-semibold">
             {book.format}
           </span>
         </div>
       </div>
 
-      <div className="p-5 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
-          <span className="text-xs font-cinzel uppercase text-burgundy-700 tracking-wider block mb-1">
+          <span className="text-[11px] sm:text-xs font-cinzel uppercase text-burgundy-700 tracking-wider block mb-1">
             {book.authors.join(", ")}
           </span>
           <Link href={`/books/${book.id}`} className="group-hover:text-burgundy-700 transition-colors">
-            <h3 className="font-playfair text-lg sm:text-xl font-bold text-ink-900 leading-snug line-clamp-2 mb-2">
+            <h3 className="font-playfair text-base sm:text-lg lg:text-xl font-bold text-ink-900 leading-snug line-clamp-2 mb-1.5">
               {book.title}
             </h3>
           </Link>
           {book.description && (
-            <p className="text-xs text-ink-700 line-clamp-2 leading-relaxed mb-4 font-serif">
+            <p className="text-xs text-ink-700 line-clamp-2 leading-relaxed mb-3 sm:mb-4 font-serif">
               {book.description}
             </p>
           )}
         </div>
 
-        <div className="pt-4 border-t border-parchment-300 flex items-center justify-between mt-auto">
+        <div className="pt-3 sm:pt-4 border-t border-parchment-300 flex items-center justify-between mt-auto gap-2">
           <div>
-            <span className="text-[10px] font-mono text-stone-500 uppercase block">Archival Price</span>
-            <span className="text-lg font-cinzel font-bold text-ink-900">
+            <span className="text-[10px] font-mono text-stone-500 uppercase block leading-tight">Archival Price</span>
+            <span className="text-base sm:text-lg font-cinzel font-bold text-ink-900">
               {formatCurrency(book.price)}
             </span>
           </div>
@@ -133,7 +133,7 @@ export function BookCard({ book }: { book: BookCardData }) {
             type="button"
             onClick={handleAddToCart}
             disabled={isOutOfStock || isAdding || isLoadingCart}
-            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-md font-cinzel text-xs uppercase tracking-wider transition-all duration-200 shadow-xs focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:outline-none ${
+            className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-md font-cinzel text-xs uppercase tracking-wider transition-all duration-200 shadow-xs focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:outline-none shrink-0 ${
               isOutOfStock
                 ? "bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300"
                 : "bg-burgundy-700 text-parchment-50 hover:bg-burgundy-800 active:scale-95 cursor-pointer"

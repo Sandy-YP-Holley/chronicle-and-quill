@@ -60,15 +60,15 @@ export function Navbar() {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          <Link href="/" className="group flex items-center gap-3.5 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none rounded-lg p-1">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#7C2D12] flex items-center justify-center text-[#FBF9F5] shadow-md border border-[#D97706]/60 group-hover:bg-[#9A3412] transition-colors shrink-0">
-              <Feather className="w-5 h-5 sm:w-6 sm:h-6 text-[#D97706]" />
+          <Link href="/" className="group flex items-center gap-2.5 sm:gap-3.5 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none rounded-lg p-1">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-[#7C2D12] flex items-center justify-center text-[#FBF9F5] shadow-md border border-[#D97706]/60 group-hover:bg-[#9A3412] transition-colors shrink-0">
+              <Feather className="w-4 h-4 sm:w-6 sm:h-6 text-[#D97706]" />
             </div>
             <div>
-              <span className="font-cinzel text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-[#1C1917] block leading-none">
+              <span className="font-cinzel text-base sm:text-xl md:text-2xl font-bold tracking-tight text-[#1C1917] block leading-none">
                 Chronicle &amp; Quill
               </span>
-              <span className="text-[10px] sm:text-[11px] font-serif text-[#7C2D12] tracking-widest uppercase block mt-1">
+              <span className="text-[10px] sm:text-[11px] font-serif text-[#7C2D12] tracking-widest uppercase hidden sm:block mt-1">
                 Historical Bookstore &amp; Archival Press
               </span>
             </div>
