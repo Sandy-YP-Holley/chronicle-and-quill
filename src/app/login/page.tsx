@@ -61,7 +61,12 @@ function LoginContent() {
         await refreshUser();
         await refreshCart();
         showToast("Welcome back to the archives, Scholar.", "success");
-        router.push(redirectPath);
+        router.refresh();
+        if (typeof window !== "undefined") {
+          window.location.href = redirectPath;
+        } else {
+          router.push(redirectPath);
+        }
       } else {
         if (data.errors && typeof data.errors === "object") {
           const parsed: Record<string, string> = {};

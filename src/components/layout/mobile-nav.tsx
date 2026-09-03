@@ -14,6 +14,9 @@ import {
   Feather,
   LogOut,
   Package,
+  Shield,
+  Store,
+  Sparkles,
 } from "lucide-react";
 import { useStore } from "@/context/store-context";
 
@@ -132,17 +135,22 @@ export function MobileNav() {
               </nav>
             </div>
 
-            <div className="pt-4 border-t border-[#E5E7EB]">
+            <div className="pt-4 border-t border-[#E5E7EB] pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
               {user ? (
-                <div className="flex flex-col gap-2">
-                  <div className="px-3 py-1">
-                    <p className="text-xs font-cinzel font-bold text-[#1C1917]">{user.name || "Scholar"}</p>
-                    <p className="text-[11px] font-mono text-stone-500">{user.email}</p>
+                <div className="flex flex-col gap-1.5">
+                  <div className="px-3 py-1.5 bg-[#F5F0E8] rounded-lg border border-[#E5E7EB] mb-1">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-cinzel font-bold text-[#1C1917] truncate">{user.name || "Scholar"}</p>
+                      <span className="text-[9px] font-cinzel font-bold uppercase tracking-wider bg-[#7C2D12] text-[#FBF9F5] px-1.5 py-0.5 rounded">
+                        {user.role}
+                      </span>
+                    </div>
+                    <p className="text-[11px] font-mono text-stone-500 truncate">{user.email}</p>
                   </div>
                   <Link
                     href="/account"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-3 py-2 text-xs font-cinzel text-stone-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2"
+                    className="px-3 py-2 text-xs font-cinzel text-stone-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2 transition-colors"
                   >
                     <User className="w-4 h-4 text-[#D97706]" />
                     <span>My Scholar Account</span>
@@ -150,31 +158,69 @@ export function MobileNav() {
                   <Link
                     href="/account/orders"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-3 py-2 text-xs font-cinzel text-stone-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2"
+                    className="px-3 py-2 text-xs font-cinzel text-stone-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2 transition-colors"
                   >
                     <Package className="w-4 h-4 text-[#D97706]" />
                     <span>Order History</span>
                   </Link>
+                  {user.role === "admin" && (
+                    <Link
+                      href="/admin"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-3 py-2 text-xs font-cinzel font-bold text-burgundy-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2 transition-colors"
+                    >
+                      <Shield className="w-4 h-4 text-[#D97706]" />
+                      <span>Curatorial Admin Suite</span>
+                    </Link>
+                  )}
+                  {user.role === "seller" ? (
+                    <Link
+                      href="/seller/dashboard"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-3 py-2 text-xs font-cinzel font-bold text-burgundy-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2 transition-colors"
+                    >
+                      <Store className="w-4 h-4 text-[#D97706]" />
+                      <span>Seller Dealership Dashboard</span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/seller/onboarding"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-3 py-2 text-xs font-cinzel text-stone-700 hover:bg-[#F5F0E8] rounded-md flex items-center gap-2 transition-colors"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#D97706]" />
+                      <span>Become an Archival Seller</span>
+                    </Link>
+                  )}
                   <button
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       logout();
                     }}
-                    className="px-3 py-2 text-xs font-cinzel text-red-800 hover:bg-red-50 rounded-md flex items-center gap-2 text-left cursor-pointer"
+                    className="px-3 py-2 text-xs font-cinzel text-red-800 hover:bg-red-50 rounded-md flex items-center gap-2 text-left cursor-pointer transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
+                    <span>Sign Out of Archive</span>
                   </button>
                 </div>
               ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 bg-[#7C2D12] text-[#FBF9F5] py-2.5 rounded-md font-cinzel text-xs tracking-wider uppercase shadow-xs"
-                >
-                  <User className="w-4 h-4 text-[#D97706]" />
-                  <span>Scholar Sign In</span>
-                </Link>
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-center gap-2 bg-[#7C2D12] text-[#FBF9F5] py-2.5 rounded-md font-cinzel text-xs tracking-wider uppercase shadow-xs hover:bg-[#9A3412] transition-colors"
+                  >
+                    <User className="w-4 h-4 text-[#D97706]" />
+                    <span>Access The Archive</span>
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-center gap-2 bg-white text-stone-700 border border-stone-300 py-2 rounded-md font-cinzel text-xs tracking-wider uppercase hover:bg-stone-50 transition-colors"
+                  >
+                    <span>Create Guild Account</span>
+                  </Link>
+                </div>
               )}
             </div>
           </div>

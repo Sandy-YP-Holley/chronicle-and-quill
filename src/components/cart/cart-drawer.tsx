@@ -35,24 +35,24 @@ export function CartDrawer() {
 
   return (
     <div
-      className={`fixed inset-0 z-50 overflow-hidden transition-all duration-150 ${
-        isCartOpen ? "pointer-events-auto visible" : "pointer-events-none invisible"
+      className={`fixed inset-0 z-50 overflow-hidden transition-opacity duration-300 ${
+        isCartOpen ? "pointer-events-auto opacity-100 visible" : "pointer-events-none opacity-0 invisible"
       }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="cart-drawer-title"
     >
       <div
-        className={`fixed inset-0 bg-black/30 transition-opacity duration-150 ease-out ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300 ease-in-out ${
           isCartOpen ? "opacity-100" : "opacity-0"
         }`}
         onClick={() => setIsCartOpen(false)}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex w-full sm:w-auto justify-end pointer-events-none">
         <div
           ref={drawerRef}
-          className={`w-full sm:w-screen max-w-md bg-parchment-50 shadow-md flex flex-col border-l border-parchment-300 transform transition-transform duration-150 ease-out ${
+          className={`pointer-events-auto w-full sm:w-[420px] max-w-full bg-parchment-50 shadow-2xl flex flex-col border-l border-parchment-300 transform transition-transform duration-300 ease-in-out ${
             isCartOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -186,7 +186,7 @@ export function CartDrawer() {
           </div>
 
           {cart.items.length > 0 && (
-            <div className="p-5 border-t border-parchment-300 bg-parchment-100 space-y-3">
+            <div className="p-5 border-t border-parchment-300 bg-parchment-100 space-y-3 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
               <div className="space-y-1.5 text-xs font-serif text-ink-700">
                 <div className="flex justify-between">
                   <span>Subtotal</span>

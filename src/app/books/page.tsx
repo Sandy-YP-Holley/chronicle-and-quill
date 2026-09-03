@@ -352,7 +352,7 @@ function CatalogContent() {
             onClick={() => setIsMobileFiltersOpen(false)}
           >
             <div
-              className="bg-[#FBF9F5] w-full max-w-xs h-full p-6 shadow-2xl overflow-y-auto space-y-6 animate-in slide-in-from-right"
+              className="bg-[#FBF9F5] w-full max-w-xs sm:max-w-sm h-full p-5 sm:p-6 shadow-2xl overflow-y-auto space-y-6 animate-in slide-in-from-right pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between pb-4 border-b border-[#E5E7EB]">

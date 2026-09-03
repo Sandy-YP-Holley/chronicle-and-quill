@@ -49,26 +49,26 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-[#FBF9F5]/95 backdrop-blur-md border-b border-[#E5E7EB] shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-stone-700 hover:text-[#7C2D12] hover:bg-[#F5F0E8] rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+            className="md:hidden p-1.5 sm:p-2 text-stone-700 hover:text-[#7C2D12] hover:bg-[#F5F0E8] rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none shrink-0"
             aria-label="Toggle navigation drawer"
             aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
 
-          <Link href="/" className="group flex items-center gap-2.5 sm:gap-3.5 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none rounded-lg p-1">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-[#7C2D12] flex items-center justify-center text-[#FBF9F5] shadow-md border border-[#D97706]/60 group-hover:bg-[#9A3412] transition-colors shrink-0">
+          <Link href="/" className="group flex items-center gap-2 sm:gap-3.5 focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none rounded-lg p-0.5 sm:p-1 min-w-0">
+            <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-[#7C2D12] flex items-center justify-center text-[#FBF9F5] shadow-md border border-[#D97706]/60 group-hover:bg-[#9A3412] transition-colors shrink-0">
               <Feather className="w-4 h-4 sm:w-6 sm:h-6 text-[#D97706]" />
             </div>
-            <div>
-              <span className="font-cinzel text-base sm:text-xl md:text-2xl font-bold tracking-tight text-[#1C1917] block leading-none">
+            <div className="min-w-0">
+              <span className="font-cinzel text-sm sm:text-xl md:text-2xl font-bold tracking-tight text-[#1C1917] block leading-none truncate">
                 Chronicle &amp; Quill
               </span>
-              <span className="text-[10px] sm:text-[11px] font-serif text-[#7C2D12] tracking-widest uppercase hidden sm:block mt-1">
+              <span className="text-[10px] sm:text-[11px] font-serif text-[#7C2D12] tracking-widest uppercase hidden sm:block mt-1 truncate">
                 Historical Bookstore &amp; Archival Press
               </span>
             </div>
@@ -91,7 +91,7 @@ export function Navbar() {
           />
         </form>
 
-        <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-sm font-medium">
+        <nav className="flex items-center gap-2 sm:gap-4 md:gap-6 text-sm font-medium shrink-0">
           <div className="hidden lg:flex items-center gap-6 font-cinzel text-xs tracking-wider uppercase text-[#44403C]">
             <Link
               href="/books"
@@ -121,7 +121,7 @@ export function Navbar() {
 
           <Link
             href="/wishlist"
-            className="p-2 text-[#44403C] hover:text-[#7C2D12] hover:bg-[#F5F0E8] rounded-full transition-colors relative focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+            className="hidden sm:flex p-2 text-[#44403C] hover:text-[#7C2D12] hover:bg-[#F5F0E8] rounded-full transition-colors relative focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
             title="View Wishlist"
             aria-label={`Wishlist containing ${wishlistIds.length} volumes`}
           >
@@ -136,12 +136,12 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="group flex items-center gap-2 bg-[#7C2D12] text-[#FBF9F5] px-3 sm:px-4 py-2 rounded-md hover:bg-[#9A3412] transition-all duration-200 active:scale-95 shadow-sm font-medium text-xs tracking-wider uppercase font-cinzel relative focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none cursor-pointer"
+            className="group flex items-center gap-1.5 sm:gap-2 bg-[#7C2D12] text-[#FBF9F5] px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-md hover:bg-[#9A3412] transition-all duration-200 active:scale-95 shadow-sm font-medium text-xs tracking-wider uppercase font-cinzel relative focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none cursor-pointer"
             aria-label={`Cart drawer containing ${cart.itemCount} items`}
           >
             <ShoppingBag className="w-4 h-4 text-[#D97706] group-hover:-rotate-12 group-hover:scale-110 transition-transform duration-300" />
             <span className="hidden sm:inline">Cart</span>
-            <span className="bg-[#D97706] text-[#1C1917] font-bold text-[11px] px-1.5 py-0.2 rounded-full transition-transform group-hover:scale-110">
+            <span className="bg-[#D97706] text-[#1C1917] font-bold text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full transition-transform group-hover:scale-110">
               {cart.itemCount}
             </span>
           </button>
@@ -174,12 +174,12 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-2 text-stone-700 hover:text-[#7C2D12] p-1.5 rounded-md hover:bg-[#F5F0E8] transition-colors text-xs font-cinzel tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+                  className="flex items-center gap-1 sm:gap-2 text-stone-700 hover:text-[#7C2D12] p-1 sm:p-1.5 rounded-md hover:bg-[#F5F0E8] transition-colors text-xs font-cinzel tracking-wider uppercase focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none cursor-pointer"
                   aria-expanded={isUserMenuOpen}
                   aria-haspopup="true"
                   aria-label="Scholar Account Menu"
                 >
-                  <div className="w-7 h-7 rounded-full bg-[#7C2D12] text-[#FBF9F5] flex items-center justify-center font-bold text-xs">
+                  <div className="w-8 h-8 rounded-full bg-[#7C2D12] text-[#FBF9F5] flex items-center justify-center font-cinzel font-bold text-xs shadow-xs border border-[#D97706]/40 shrink-0">
                     {user.name ? user.name[0].toUpperCase() : user.email[0].toUpperCase()}
                   </div>
                   <ChevronDown className="w-3.5 h-3.5 text-stone-500" />
@@ -221,20 +221,20 @@ export function Navbar() {
                       role="menuitem"
                     >
                       <Bookmark className="w-4 h-4 text-[#D97706]" />
-                      <span>Saved Folios</span>
+                      <span>Wishlist Archive</span>
                     </Link>
-
-                    {user.role === "admin" ? (
+                    {user.role === "admin" && (
                       <Link
                         href="/admin"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-burgundy-700 bg-gold-300/20 hover:bg-gold-300/30 transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-burgundy-700 hover:bg-[#F5F0E8] transition-colors"
                         role="menuitem"
                       >
-                        <Shield className="w-4 h-4 text-gold-600" />
+                        <Shield className="w-4 h-4 text-burgundy-700" />
                         <span>Curatorial Admin</span>
                       </Link>
-                    ) : user.role === "seller" ? (
+                    )}
+                    {user.role === "seller" ? (
                       <Link
                         href="/seller/dashboard"
                         onClick={() => setIsUserMenuOpen(false)}
@@ -262,7 +262,7 @@ export function Navbar() {
                         setIsUserMenuOpen(false);
                         logout();
                       }}
-                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-red-800 hover:bg-red-50 transition-colors text-left"
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-red-800 hover:bg-red-50 transition-colors text-left cursor-pointer"
                       role="menuitem"
                     >
                       <LogOut className="w-4 h-4" />
@@ -274,10 +274,10 @@ export function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-[#F5F0E8] text-[#1C1917] border border-[#D97706]/70 hover:bg-[#EDE4D3] px-3.5 py-2 rounded-md font-cinzel text-xs tracking-wider uppercase transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none"
+                className="inline-flex items-center gap-1 sm:gap-1.5 bg-[#F5F0E8] text-[#1C1917] border border-[#D97706]/70 hover:bg-[#EDE4D3] px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-md font-cinzel text-xs tracking-wider uppercase transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:outline-none shrink-0"
               >
                 <User className="w-3.5 h-3.5 text-[#7C2D12]" />
-                <span>Sign In</span>
+                <span className="hidden min-[360px]:inline">Sign In</span>
               </Link>
             )}
           </div>

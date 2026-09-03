@@ -28,6 +28,7 @@ export default function AccountPage() {
       if (res.ok) {
         await refreshUser();
         showToast("You have departed the archives safely.", "info");
+        router.refresh();
         router.push("/login");
       }
     } catch {

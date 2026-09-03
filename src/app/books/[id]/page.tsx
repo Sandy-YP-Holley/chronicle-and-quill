@@ -107,8 +107,8 @@ export default function BookDetailPage({ params }: { params: Promise<{ id: strin
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full animate-fadeIn">
-      <nav className="flex items-center gap-2 text-xs font-serif text-stone-500 mb-8 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full animate-fadeIn">
+      <nav className="flex items-center gap-2 text-xs font-serif text-stone-500 mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap scrollbar-none" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-[#7C2D12] transition-colors">
           Archive Home
         </Link>
